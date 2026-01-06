@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import time
 import io
 import copy
@@ -515,7 +515,7 @@ class CollapsibleBox(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("沉降监测与变形预测系统 (GM1,1) - 测绘工程课设")
+        self.setWindowTitle("沉降监测与变形预测系统 - 测绘工程课设")
         self.resize(1100, 700)
         
         self.gm_model = GreyModelGM11()
@@ -584,6 +584,15 @@ class MainWindow(QMainWindow):
         help_menu = menubar.addMenu("帮助")
         about_act = help_menu.addAction("关于")
         about_act.triggered.connect(self.show_about)
+        self.lbl_github = QLabel(
+            '本项目已在GitHub开源 <a href="https://github.com/ForestSun2023/SettlementPro">'
+            'https://github.com/ForestSun2023/SettlementPro</a>'
+        )
+        self.lbl_github.setTextFormat(Qt.TextFormat.RichText)
+        self.lbl_github.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+        self.lbl_github.setOpenExternalLinks(True)
+        self.lbl_github.setStyleSheet("margin-right: 50px; margin-top: 10px;")
+        menubar.setCornerWidget(self.lbl_github, Qt.Corner.TopRightCorner)
 
         main_widget = QWidget()
         self.setCentralWidget(main_widget)
@@ -1048,15 +1057,15 @@ class MainWindow(QMainWindow):
         """显示关于对话框"""
         msg = QMessageBox(self)
         msg.setWindowTitle("关于")
-        msg.setTextFormat(Qt.RichText)
+        msg.setTextFormat(Qt.TextFormat.RichText)
         msg.setText(
             "<b>沉降监测与变形预测系统 v1.0</b><br><br>"
-            "基于 Python PyQt6 + GM(1,1) 模型开发。<br><br>"
+            "基于 Python PyQt6、灰色预测、曲线拟合、滚动预测与异常检测等技术开发。<br><br>"
             "本项目已在 GitHub 开源："
             "<a href=\"https://github.com/ForestSun2023/SettlementPro\">"
             "https://github.com/ForestSun2023/SettlementPro</a>"
         )
-        msg.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        msg.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
         for label in msg.findChildren(QLabel):
             label.setOpenExternalLinks(True)
